@@ -4,7 +4,9 @@ var express = require('express'),
 server.listen(process.env.POST || 3000);
 var io = require('socket.io').listen(server);
 
-app.use(express.static('public'));
+app.get('/', function(req, res){
+    res.sendFile(__dirname + '/public/client.js')
+})
 var objects;
 
 io.on('connection', function(socket){
