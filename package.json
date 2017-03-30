@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "WebSocket for agariohere",
   "main": "index.js",
+  "engines": {
+    "node": "7.7.2"
+  },
   "scripts": {
-    "server": "node server.js"
+    "start": "node server.js"
   },
   "keywords": [
     "Server",
