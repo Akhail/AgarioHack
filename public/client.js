@@ -1,15 +1,8 @@
-// ==UserScript==
 // @name         Script agarioplay.org
-// @namespace    Michel_Betancourth@hotmail.com
-// @version      3.0
+// @version      3.2
 // @description  Script para el juego agariohere
 // @author       Akhail (Michel Betancourt)
-// @match        http://agariohere.com/*
-// @match        http://agario.mobi/*
-// @require      https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js
-// @grant        none
-// ==/UserScript==
-/* jshint -W097 */
+
 'use strict';
 (function() {
     function MouseHack(retardo) {
@@ -99,7 +92,7 @@
 
     function ShowAliasMap() {
         var $ = window.jQuery;
-        var socket = io.connect('http://localhost:3000');
+        var socket = io.connect('https://agariohack.herokuapp.com/');
         var canvas = document.createElement("canvas");
         var sendo;
 
