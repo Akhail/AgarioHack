@@ -1,0 +1,12 @@
+{
+  "name": "WebSocketAgario",
+  "version": "1.0.0",
+  "description": "WebSocket for agariohere",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["Server", "Map", "Agario", "WebSocket"],
+  "author": "Michel Betancourt",
+  "license": "MIT"
+}
