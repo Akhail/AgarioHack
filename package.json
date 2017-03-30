@@ -1,5 +1,5 @@
 {
-  "name": "WebSocketAgario",
+  "name": "wsagario",
   "version": "1.0.0",
   "description": "WebSocket for agariohere",
   "main": "index.js",
