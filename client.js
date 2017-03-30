@@ -40,7 +40,7 @@ function SelectorName() {
     var nick = $("#nick");
 
     var names = JSON.parse(localStorage.getItem('names_agario'));
-    
+    var last = localStorage.getItem("last_agario_name");
     var option;
 
     if(names === null) {
@@ -64,6 +64,7 @@ function SelectorName() {
                 localStorage.setItem('names_agario', JSON.stringify(names));
                 $(this).val(news);
             }
+            localStorage.setItem("last_agario_name", $(this).val());
         }
     });
 
@@ -81,6 +82,7 @@ function SelectorName() {
     });
 
     select.append(option);
+    if(last !== null) select.val(last);
     nick.replaceWith(select);
 }
 
@@ -142,6 +144,8 @@ function ShowAliasMap() {
             ctx.fill();
         }
     });
+
+    $('#screenshot').hide();
 }
 
 (function() {

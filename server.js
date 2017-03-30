@@ -5,14 +5,12 @@ server.listen(3000);
 var io = require('socket.io').listen(server);
 
 var objects;
-io.on('connection', function(socket){
 
+io.on('connection', function(socket){
     socket.emit("connected");
     socket.on('sendcoord', function(coords){
         socket.broadcast.emit('aliescoord', coords);
     });
 });
-
-
 
 console.log('Servidor corriendo');
