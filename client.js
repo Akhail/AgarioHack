@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Script agarioplay.org
 // @namespace    Michel_Betancourth@hotmail.com
-// @version      2.5
-// @description  Script para el clan ☣mᗬᎫ☣
-// @author       Alein
+// @version      3.0
+// @description  Script para el juego agariohere
+// @author       Akhail (Michel Betancourt)
 // @match        http://agariohere.com/*
 // @match        http://agario.mobi/*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js
@@ -25,7 +25,6 @@ function MouseHack(retardo) {
                     keyCode: 87
                 });
             }, retardo);
-
         }
     });
 
@@ -37,11 +36,52 @@ function MouseHack(retardo) {
 }
 
 function SelectorName() {
-    var names = ["ᒎᗩᑎᗪᑕツᔕᗩᒪᗩƵ","☣mᗬᎫ☣☆คlєเภ☆","☣mᗬᎫ☣☆ℓυηค☆","☣mᗬᎫ☣☆קּяΘ☆","凸(^_^)凸","ک!мþℓعмэи†э","ᖫ✧Ǥяυиgє✧ᖭ","☣mᗬᎫ☣☆ᒪᑌᑎᗩ☆","★کτγℓع★"];// Nombre del jugador
-    window.jQuery("#nick").replaceWith("<select id=\"nick\" class=\"form-control\" onchange=\"\" required=\"\">");  
-    for(var i = 0; i < names.length; i++){
-        window.jQuery("#nick").append("<option value=\"" + names[i] + "\" >" + names[i] + "</option>");
+    var $ = window.jQuery;
+    var nick = $("#nick");
+
+    var names = JSON.parse(localStorage.getItem('names_agario'));
+    
+    var option;
+
+    if(names === null) {
+        names = [];
+        names.push([prompt("Nuevo nombre: ")]);
+        localStorage.setItem('names_agario', JSON.stringify(names));
     }
+
+    var select = $('<select>', {
+        'id': 'nick',
+        'class': 'form-control',
+        'change': function() {
+            if($(this).val() == 'nuevo'){
+                var news = prompt("Nuevo nombre: ");
+                $(this).prepend($('<option>', {
+                    'value': news,
+                    'text': news 
+                }));
+
+                names.push(news);
+                localStorage.setItem('names_agario', JSON.stringify(names));
+                $(this).val(news);
+            }
+        }
+    });
+
+    names.forEach(function(element) {
+        option = $('<option>', {
+            'value': element,
+            'text': element
+        });
+        select.append(option);
+    });
+
+    option = $('<option>', {
+        'text': 'Agregar Nuevo',
+        'value': 'nuevo'
+    });
+
+    select.append(option);
+    nick.replaceWith(select);
 }
 
 function AntiBlockChat() {
@@ -55,10 +95,60 @@ function AntiBlockChat() {
     });
 }
 
+function ShowAliasMap() {
+    var $ = window.jQuery;
+    var socket = io.connect('http://localhost:3000');
+    var canvas = document.createElement("canvas");
+    var sendo;
+
+    canvas.style.top = "0"; canvas.style.bottom = "0";
+    canvas.style.right = "0"; canvas.style.left = "0";
+    canvas.style.position = "absolute"; canvas.style.zIndex = "1000";
+    canvas.width = 150;
+    canvas.height = 150;
+
+    $('#mini-map-wrapper').append(canvas);
+
+    socket.on('connected', function(){
+        console.log("Connectado");
+    });
+    
+    var name = $("#nick").val();
+
+    setInterval(function() {
+        sendo = [];
+        for (var partec in window.mini_map_tokens) {
+            var obj = window.mini_map_tokens[partec];
+            obj.nick = name;
+            console.log(obj);
+            sendo.push(obj);
+        }
+        socket.emit("sendcoord", sendo);
+    }, 1000 / 20);
+
+    socket.on('aliescoord', function(alie) {
+        var mini_map = canvas;
+        var ctx = mini_map.getContext("2d");
+        ctx.clearRect(0, 0, mini_map.width, mini_map.height);
+        for (var partec in alie) {
+            var obj = alie[partec];
+            var valx = obj.x * mini_map.width;
+            var valy = obj.y * mini_map.height;
+            var radio = obj.size * mini_map.width;
+            ctx.beginPath();
+            ctx.arc(valx, valy, radio, 0, 2 * Math.PI, false);
+            ctx.closePath();
+            ctx.fillStyle = obj.color;
+            ctx.fill();
+        }
+    });
+}
+
 (function() {
     window.setShowMass(true);
     window.setSkipStats(true);
     AntiBlockChat();
     MouseHack(50);
     SelectorName();
+    ShowAliasMap();
 })();
