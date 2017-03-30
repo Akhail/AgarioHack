@@ -6,7 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["Server", "Map", "Agario", "WebSocket"],
+  "keywords": [
+    "Server",
+    "Map",
+    "Agario",
+    "WebSocket"
+  ],
   "author": "Michel Betancourt",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3"
+  }
 }
