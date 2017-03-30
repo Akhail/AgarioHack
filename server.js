@@ -1,7 +1,7 @@
 var express = require('express'),
     app = express();
     server = require('http').createServer(app);
-server.listen(process.env.POST || 3000);
+server.listen(process.env.PORT || 3000);
 var io = require('socket.io').listen(server);
 
 app.get('/', function(req, res){
