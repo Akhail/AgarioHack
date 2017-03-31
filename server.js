@@ -11,9 +11,6 @@ app.get('/style', function(req, res) {
     res.sendFile(__dirname + '/public/style.css');
 });
 
-
-var objects;
-
 io.on('connection', function(socket){
     socket.emit("connected");
     socket.on('sendcoord', function(coords, room){

@@ -99,19 +99,17 @@
     }
 
     function ShowAliasMap() {
-        var canvas = $('<canvas>', { 'class': 'mapcanvas', 'width': '150', 'height': '150'}).get(0);
+        var canvas = $('<canvas>', { 'class': 'mapcanvas'}).prop({ width: '150', height: '150'}).get(0);
         var ctx = canvas.getContext("2d");
         var dead = false;
 
-        $('#mini-map-wrapper').append(canvas);
+        $('#mini-map-wrapper').append(canvas); // Contenedor
 
         socket.on('connected', function(){
             console.log("Connectado");
         });
 
-
         setInterval(function() {
-
             var actualy = $('#pserver').val();
             var sendo = [];
             for (var partec in window.mini_map_tokens) {
@@ -119,12 +117,12 @@
                 sendo.push(obj);
             }
             socket.emit("sendcoord", sendo, actualy);
-        }, 1000 / 20);
-        socket.on('aliescoord', function(alie) {
-            var allParts = alie;
+        }, 100);
+
+        
+        socket.on('aliescoord', function(coords) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (var partec in allParts) {
-                var obj = allParts[partec];
+            coords.forEach(function(obj){
                 var valx = obj.x * canvas.width;
                 var valy = obj.y * canvas.height;
                 var radio = obj.size * canvas.width;
@@ -133,7 +131,7 @@
                 ctx.closePath();
                 ctx.fillStyle = obj.color;
                 ctx.fill();
-            }
+            });
         });
 
         $('#screenshot').hide();
