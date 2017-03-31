@@ -5,6 +5,7 @@
 
 'use strict';
 (function() {
+    var socket = io.connect(window.pserver);
 
     function MouseHack(retardo) {
         var interval;
@@ -30,7 +31,6 @@
     }
 
     function SelectorName() {
-        var $ = window.jQuery;
         var nick = $("#nick");
 
         var names = JSON.parse(localStorage.getItem('names_agario'));
@@ -99,12 +99,9 @@
     }
 
     function ShowAliasMap() {
-        var $ = window.jQuery;
-        var socket = io.connect(window.pserver);
-        var canvas = $('<canvas>', { 'class': 'mapcanvas'})
-        var sendo;
-        var ctx = mini_map.getContext("2d");
-        $('#mini-map').hide();
+        var canvas = $('<canvas>', { 'class': 'mapcanvas', 'width': '150', 'height': '150'}).get(0);
+        var ctx = canvas.getContext("2d");
+        var dead = false;
 
         $('#mini-map-wrapper').append(canvas);
 
@@ -112,34 +109,25 @@
             console.log("Connectado");
         });
 
-        socket.emit('joinroom', $('#pserver').val());
-
-        var name = $("#nick").val();
 
         setInterval(function() {
-            sendo = [];
+
+            var actualy = $('#pserver').val();
+            var sendo = [];
             for (var partec in window.mini_map_tokens) {
                 var obj = window.mini_map_tokens[partec];
-                var valx = obj.x * mini_map.width;
-                var valy = obj.y * mini_map.height;
-                var radio = obj.size * mini_map.width;
-                ctx.beginPath();
-                ctx.arc(valx, valy, radio, 0, 2 * Math.PI, false);
-                ctx.closePath();
-                ctx.fillStyle = obj.color;
-                ctx.fill();
+                sendo.push(obj);
             }
-            socket.emit("sendcoord", sendo, $('#pserver').val());
+            socket.emit("sendcoord", sendo, actualy);
         }, 1000 / 20);
-
         socket.on('aliescoord', function(alie) {
-            var mini_map = canvas;
-            ctx.clearRect(0, 0, mini_map.width, mini_map.height);
-            for (var partec in alie) {
-                var obj = alie[partec];
-                var valx = obj.x * mini_map.width;
-                var valy = obj.y * mini_map.height;
-                var radio = obj.size * mini_map.width;
+            var allParts = alie;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var partec in allParts) {
+                var obj = allParts[partec];
+                var valx = obj.x * canvas.width;
+                var valy = obj.y * canvas.height;
+                var radio = obj.size * canvas.width;
                 ctx.beginPath();
                 ctx.arc(valx, valy, radio, 0, 2 * Math.PI, false);
                 ctx.closePath();
@@ -149,14 +137,14 @@
         });
 
         $('#screenshot').hide();
-
+        
         
     }
 
     function MenuScript() {
         var mainpanel = $('#mainPanel');
-        mainpanel.css({'position': 'relative'});
 
+        mainpanel.css({'position': 'relative'});
         var main = $('<div>', {'class': 'optionScript'});
         main.append($('<h2>Menu Script</h2><div><h3>Codigo Amigo</h3><input type="text" id="pserver"></div><h4>Script Desarrollado por: Michel Betancourt(Akhail)</h4>'));        
         mainpanel.append(main);
@@ -167,6 +155,7 @@
     AntiBlockChat();
     MouseHack(50);
     SelectorName();
-    ShowAliasMap();
+
     MenuScript();
+    ShowAliasMap();
 })();

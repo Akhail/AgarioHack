@@ -16,11 +16,15 @@ var objects;
 
 io.on('connection', function(socket){
     socket.emit("connected");
-    socket.on('joinroom', function(room) {
-        socket.join(room);
-    });
     socket.on('sendcoord', function(coords, room){
-        socket.broadcast.to(room).emit('aliescoord', coords);
+        if(room !== '') {
+            if(room !== socket.room) {
+                socket.leave(socket.room);
+                socket.room = room;
+                socket.join(room);
+            }
+            socket.broadcast.to(socket.room).emit('aliescoord', coords);
+        }
     });
 });
 
