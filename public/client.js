@@ -1,5 +1,5 @@
 // @name         Script agarioplay.org
-// @version      3.2
+// @version      3.22
 // @description  Script para el juego agariohere
 // @author       Akhail (Michel Betancourt)
 
@@ -39,7 +39,7 @@
         if(names === null) {
             names = [];
             var ent = prompt("Nuevo nombre: ");
-            if(ent !== "") {
+            if(ent !== null) {
                 names.push(ent);
             }
             localStorage.setItem('names_agario', JSON.stringify(names));
@@ -51,7 +51,7 @@
             'change': function() {
                 if($(this).val() == 'nuevo'){
                     var news = prompt("Nuevo nombre: ");
-                    if(news !== ""){
+                    if(news !== null){
                         $(this).prepend($('<option>', {
                             'value': news,
                             'text': news 
