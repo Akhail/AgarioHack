@@ -129,7 +129,7 @@
                 ctx.fillStyle = obj.color;
                 ctx.fill();
             }
-            socket.emit("sendcoord", sendo);
+            socket.emit("sendcoord", sendo, $('#pserver').val());
         }, 1000 / 20);
 
         socket.on('aliescoord', function(alie) {
