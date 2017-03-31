@@ -100,15 +100,10 @@
     function ShowAliasMap() {
         var $ = window.jQuery;
         var socket = io.connect('https://agariohack.herokuapp.com/');
-        var canvas = document.createElement("canvas");
+        var canvas = $('<canvas>', { 'class': 'mapcanvas'})
         var sendo;
 
         $('#mini-map').hide();
-        canvas.style.top = "0"; canvas.style.bottom = "0";
-        canvas.style.right = "0"; canvas.style.left = "0";
-        canvas.style.position = "absolute"; canvas.style.zIndex = "1000";
-        canvas.width = 150;
-        canvas.height = 150;
 
         $('#mini-map-wrapper').append(canvas);
 
@@ -152,14 +147,19 @@
         });
 
         $('#screenshot').hide();
+
+        var mainpanel = $('#mainPanel');
+        mainpanel.css({'position': 'relative'});
+        mainpanel.append(MenuScript());
     }
 
-    function ShowDeveloper() {
-        var divdev = $('<div>', {
-            'class': 'devName',
-            'text': 'Akhail (Michel Betancourt)'
-        });
-        $('body').append(divdev);
+    function MenuScript() {
+        var main = $('<div>', {'class': 'optionScript'});
+        main.append($('<h2>', {
+            'class': 'optionTitle',
+            'text': 'Menu Script'
+        }));
+        return main;
     }
 
     window.setShowMass(true);
