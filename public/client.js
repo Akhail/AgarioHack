@@ -38,7 +38,10 @@
 
         if(names === null) {
             names = [];
-            names.push([prompt("Nuevo nombre: ")]);
+            var ent = prompt("Nuevo nombre: ");
+            if(ent !== "") {
+                names.push(ent);
+            }
             localStorage.setItem('names_agario', JSON.stringify(names));
         }
 
@@ -48,16 +51,20 @@
             'change': function() {
                 if($(this).val() == 'nuevo'){
                     var news = prompt("Nuevo nombre: ");
-                    $(this).prepend($('<option>', {
-                        'value': news,
-                        'text': news 
-                    }));
+                    if(news !== ""){
+                        $(this).prepend($('<option>', {
+                            'value': news,
+                            'text': news 
+                        }));
 
-                    names.push(news);
-                    localStorage.setItem('names_agario', JSON.stringify(names));
-                    $(this).val(news);
+                        names.push(news);
+                        localStorage.setItem('names_agario', JSON.stringify(names));
+                        $(this).val(news);
+                    }
+                    
+                } else {
+                    localStorage.setItem("last_agario_name", $(this).val());
                 }
-                localStorage.setItem("last_agario_name", $(this).val());
             }
         });
 
@@ -96,6 +103,7 @@
         var canvas = document.createElement("canvas");
         var sendo;
 
+        $('#mini-map').hide();
         canvas.style.top = "0"; canvas.style.bottom = "0";
         canvas.style.right = "0"; canvas.style.left = "0";
         canvas.style.position = "absolute"; canvas.style.zIndex = "1000";
@@ -114,9 +122,14 @@
             sendo = [];
             for (var partec in window.mini_map_tokens) {
                 var obj = window.mini_map_tokens[partec];
-                obj.nick = name;
-                console.log(obj);
-                sendo.push(obj);
+                var valx = obj.x * mini_map.width;
+                var valy = obj.y * mini_map.height;
+                var radio = obj.size * mini_map.width;
+                ctx.beginPath();
+                ctx.arc(valx, valy, radio, 0, 2 * Math.PI, false);
+                ctx.closePath();
+                ctx.fillStyle = obj.color;
+                ctx.fill();
             }
             socket.emit("sendcoord", sendo);
         }, 1000 / 20);
