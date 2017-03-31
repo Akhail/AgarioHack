@@ -6,7 +6,10 @@ var io = require('socket.io').listen(server);
 
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/public/client.js')
-})
+});
+app.get('/style', function(req, res) {
+    res.sendFile(__dirname + '/public/style.css');
+}); 
 var objects;
 
 io.on('connection', function(socket){

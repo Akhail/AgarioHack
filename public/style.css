@@ -1,0 +1,10 @@
+.devName {
+    display: inline;
+    position: fixed;
+    top: 15px;
+    left: 60px;
+    background: rgba(10, 10, 10, 170);
+    font-size: 10px;
+    text-align: center;
+    padding: 4px;
+}

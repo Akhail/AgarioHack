@@ -154,6 +154,13 @@
         $('#screenshot').hide();
     }
 
+    function ShowDeveloper() {
+        var divdev = $('<div>', {
+            'class': 'devName',
+            'text': 'Akhail (Michel Betancourt)'
+        });
+        $('body').append(divdev);
+    }
 
     window.setShowMass(true);
     window.setSkipStats(true);
@@ -161,4 +168,5 @@
     MouseHack(50);
     SelectorName();
     ShowAliasMap();
+    ShowDeveloper();
 })();
