@@ -5,6 +5,7 @@
 
 'use strict';
 (function() {
+
     function MouseHack(retardo) {
         var interval;
 
@@ -99,7 +100,7 @@
 
     function ShowAliasMap() {
         var $ = window.jQuery;
-        var socket = io.connect('https://agariohack.herokuapp.com/');
+        var socket = io.connect(window.pserver);
         var canvas = $('<canvas>', { 'class': 'mapcanvas'})
         var sendo;
 
@@ -110,7 +111,9 @@
         socket.on('connected', function(){
             console.log("Connectado");
         });
-        
+
+        socket.emit('joinroom', $('#pserver').val());
+
         var name = $("#nick").val();
 
         setInterval(function() {
@@ -148,18 +151,16 @@
 
         $('#screenshot').hide();
 
-        var mainpanel = $('#mainPanel');
-        mainpanel.css({'position': 'relative'});
-        mainpanel.append(MenuScript());
+        
     }
 
     function MenuScript() {
+        var mainpanel = $('#mainPanel');
+        mainpanel.css({'position': 'relative'});
+
         var main = $('<div>', {'class': 'optionScript'});
-        main.append($('<h2>', {
-            'class': 'optionTitle',
-            'text': 'Menu Script'
-        }));
-        return main;
+        main.load(window.pserver + 'menu');        
+        mainpanel.append(main);
     }
 
     window.setShowMass(true);
@@ -168,5 +169,5 @@
     MouseHack(50);
     SelectorName();
     ShowAliasMap();
-    ShowDeveloper();
+    MenuScript();
 })();

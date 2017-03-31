@@ -1,30 +1,68 @@
 .devName {
-    display: inline;
-    position: fixed;
-    top: 0px;
-    left: 156px;
-    background: rgba(10, 10, 10, .3);
-    font-size: 8px;
-    text-align: center;
-    font-weight: bold;
-}
+  display: inline;
+  position: fixed;
+  top: 0px;
+  left: 156px;
+  background: rgba(10, 10, 10, 0.3);
+  font-size: 8px;
+  text-align: center;
+  font-weight: bold; }
 
 .mapcanvas {
-    position: absolute;
-    top: 0; bottom: 0; right: 0; left: 0;
-    z-index: 10;
-    width: 150; height: 150;
-}
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  width: 150;
+  height: 150; }
 
 .optionScript {
-    position: absolute;
-    bottom: 20px; left: 0; right: 0;
-    width: 80%;
-    background: rgba(44, 44, 44, .4);
-    height: 300px;
-}
-
-.optionTitle {
+  border: 1px dashed #aaa;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 80%;
+  height: 200px;
+  border-radius: 8px; }
+  .optionScript * {
+    font-family: 'Roboto', sans-serif;
+    color: #777; }
+  .optionScript h2 {
     display: block;
     text-align: center;
-}
+    font-size: 20px;
+    margin: 10px 0;
+    border-radius: 5px; }
+  .optionScript div h3 {
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    margin: 0; }
+  .optionScript div input {
+    width: 80%;
+    display: block;
+    margin: auto;
+    border: none;
+    padding: 2px 0;
+    text-align: center;
+    border-bottom: 1px solid #777;
+    transition: all 100ms ease; }
+    .optionScript div input:focus {
+      outline: 0;
+      border-bottom: 2px solid #2196F3; }
+  .optionScript h4 {
+    font-size: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0;
+    padding: 2px;
+    display: block; }
+
+/*# sourceMappingURL=style.css.map */
