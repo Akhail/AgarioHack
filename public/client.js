@@ -103,7 +103,7 @@
         var socket = io.connect(window.pserver);
         var canvas = $('<canvas>', { 'class': 'mapcanvas'})
         var sendo;
-
+        var ctx = mini_map.getContext("2d");
         $('#mini-map').hide();
 
         $('#mini-map-wrapper').append(canvas);
@@ -134,7 +134,6 @@
 
         socket.on('aliescoord', function(alie) {
             var mini_map = canvas;
-            var ctx = mini_map.getContext("2d");
             ctx.clearRect(0, 0, mini_map.width, mini_map.height);
             for (var partec in alie) {
                 var obj = alie[partec];
