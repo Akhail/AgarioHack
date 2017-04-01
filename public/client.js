@@ -1,6 +1,5 @@
 // @name         Script agarioplay.org
-// @version      3.22
-// @description  Script para el juego agariohere
+// @description  Script para el juego agario
 // @author       Akhail (Michel Betancourt)
 
 'use strict';
