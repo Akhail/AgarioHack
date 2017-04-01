@@ -5,13 +5,13 @@ server.listen(process.env.PORT || 3000);
 var io = require('socket.io').listen(server);
 
 app.get('/client', function(req, res){
-    res.sendFile(__dirname + '/public/client.js');
+    res.sendFile(__dirname + '/dist/client.min.js');
 });
 app.get('/', function(req, res){
-    res.sendFile(__dirname + '/public/script.js');
+    res.sendFile(__dirname + '/dist/script.js');
 });
 app.get('/style', function(req, res) {
-    res.sendFile(__dirname + '/public/style.css');
+    res.sendFile(__dirname + '/dist/style.min.css');
 });
 
 io.on('connection', function(socket){
