@@ -3,15 +3,19 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
     jshint = require('gulp-jshint'),
-    iife = require('gulp-iife');
+    iife = require('gulp-iife'),
+    gutil = require('gulp-util');
 
 gulp.task('js', function(){
     gulp.src('src/js/*.js')
         .pipe(concat('client.min.js'))
         .pipe(iife())
-        .pipe(jshint())
+        .pipe(jshint({
+            'esversion': 6
+        }))
         .pipe(jshint.reporter('default'))
         .pipe(uglify())
+        .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
         .pipe(gulp.dest('dist/'))
 });
 

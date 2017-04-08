@@ -26,6 +26,9 @@ io.on('connection', function(socket){
             socket.broadcast.to(socket.room).emit('aliescoord', coords);
         }
     });
+    socket.on('sendchat', function(user, text, color){
+        if(room !== '') io.to(socket.room).emit('allieschat', user, text, color);
+    });
 });
 
 console.log('Servidor corriendo');

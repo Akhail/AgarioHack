@@ -1,0 +1,33 @@
+
+input.privateChat {
+    transition: all .5s ease-in-out;
+    position: absolute;
+    z-index: 1;
+    bottom: 10px;
+    background: rgba(0, 0, 0, .2);
+    border: 0px;
+    outline: none;
+    color: #FFF;
+    height: 30px;
+    text-indent: 12px;
+    left: 10px;
+    width: 300px;
+    &:focus {
+        background: rgba(0, 0, 0, .5);
+    }
+}
+
+div.privateChat {
+    position: absolute;
+    left: 22px;
+    bottom: 50px;
+    font-size: 1.2em;
+    width: 300px;
+    max-height: 210px;
+    > span {
+        font-family: "Roboto" sans-serif;
+        font-weight: bold;
+        color: #777;
+        display: block;
+    }
+}

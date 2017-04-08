@@ -10,5 +10,6 @@ AntiBlockChat();
 MouseHack(50);
 SelectorName();
 
-MenuScript();
 ShowAliasMap();
+PrivateChat();
+MenuScript();
