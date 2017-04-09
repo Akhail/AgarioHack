@@ -1,7 +1,7 @@
 function MouseHack(retardo) {
     var interval;
 
-    window.addEventListener("mousedown", function(evt) {
+    $(window).on("mousedown", function(evt) {
         if (evt.which == 3) {
             interval = setInterval(function() {
                 window.onkeydown({
@@ -14,7 +14,7 @@ function MouseHack(retardo) {
         }
     });
 
-    window.addEventListener("mouseup", function(evt) {
+    $(window).on("mouseup", function(evt) {
         if (evt.which == 3) {
             clearInterval(interval);
         }

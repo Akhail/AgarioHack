@@ -11,11 +11,8 @@ function ShowAliasMap() {
 
     setInterval(function() {
         var actualy = $('#pserver').val();
-        var sendo = [];
-        for (var partec in window.mini_map_tokens) {
-            var obj = window.mini_map_tokens[partec];
-            sendo.push(obj);
-        }
+        var sendo = window.mini_map_tokens.filter(function(x) { return x !== undefined; });
+        console.log(sendo);
         socket.emit("sendcoord", sendo, actualy);
     }, 100);
 
