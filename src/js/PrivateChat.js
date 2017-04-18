@@ -10,7 +10,8 @@ function PrivateChat() {
         }),
         checkMsg = $('.hide_chatbox > label').first().children('input');
     $(window).on('keydown', function(evt){
-        if(evt.key == 'c') {
+        if(evt.which === 9) {
+            evt.preventDefault();
             checkMsg.prop('checked', !checkMsg.is(':checked'));
             changeChat();
         }
